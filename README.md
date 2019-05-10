@@ -118,9 +118,7 @@ The file `./data/hubs-model.js` works as a data layer. It has methods for manipu
 
 ```js
 server.get('/hubs', (req, res) => {
-  // .hubs.find() returns a promise that resolves to a list of existing hubs
-  // it fails if the server's clock seconds hold an odd value. Done to simulate failures.
-  // (ie. fails at 9:02:03 and 9:02:05, succeeds at 9:02:02 and 9:02:04)
+  // db.find() returns a promise that resolves to a list of existing hubs
   db.find()
     .then(hubs => {
       // introduce res.status() and res.json()
@@ -138,7 +136,7 @@ server.get('/hubs', (req, res) => {
 ```
 
 3. visit `/hubs` in the browser.
-4. refresh browsers a few times to see it fail when seconds hold an even value.
+4. refresh browsers to see the list of hubs.
 
 **wait for students to catch up, use a `yes/no` poll to let students tell you when they are done**
 
@@ -233,50 +231,6 @@ server.delete('/hubs/:id', (req, res) => {
 
 At this point we have seen how to read information from the request `body` and `url parameters`.
 
-Time for students to practice what they have learned.
-
-### You Do (estimated 10m to complete)
-
-1. add `GET /hubs/:id` Endpoint that uses `db.findById(id)` and returns the hub with the provided `id` if one is found.
-1. if the hub is not found for that `id`, return status code `404` and this object: `{ success: false, message: 'We couldn't find a hub with the provided id' }`.
-
-One possible solution:
-
-```js
-server.get('/hubs/:id', (req, res) => {
-  db.findById(req.params.id)
-    .then(hub => {
-      if (hub) {
-        res.status(200).json({
-          success: true,
-          hub,
-        });
-      } else {
-        res.status(404).json({
-          success: false,
-          message: 'We cannot find the hub you are looking for',
-        });
-      }
-    })
-    .catch(err => {
-      // we ran into an error getting the hubs
-      // use the catch-all 500 status code
-      res.status(500).json({
-        success: false,
-        err,
-      });
-    });
-});
-```
-
-1. try the endpoint with an invalid `id`. Should fail with `400` error.
-1. try the endpoint with the `id` of a non existing hub. Should fail with a `404`.
-1. try the endpoint with the `id` of a existing hub. Should get a `200` and the hub.
-
-**wait for students to catch up, use a `yes/no` poll to let students tell you when they are done**
-
-**optional if there is at least 15 mins left**
-
 Next, we'll bring it all together to update (the `U` in CRUD) a hub.
 
 ## Add `PUT /hubs/:id` Endpoint
@@ -321,3 +275,45 @@ server.put('/hubs/:id', (req, res) => {
 1. make a `GET` to `/hubs` and show that the hub was updated.
 
 **wait for students to catch up, use a `yes/no` poll to let students tell you when they are done**
+
+**optional if there is at least 15 mins left**
+
+Time for students to practice what they have learned.
+
+### You Do (estimated 8m to complete)
+
+1. add `GET /hubs/:id` Endpoint that uses `db.findById(id)` and returns the hub with the provided `id` if one is found.
+1. if the hub is not found for that `id`, return status code `404` and this object: `{ success: false, message: 'We couldn't find a hub with the provided id' }`.
+
+One possible solution:
+
+```js
+server.get('/hubs/:id', (req, res) => {
+  db.findById(req.params.id)
+    .then(hub => {
+      if (hub) {
+        res.status(200).json({
+          success: true,
+          hub,
+        });
+      } else {
+        res.status(404).json({
+          success: false,
+          message: 'We cannot find the hub you are looking for',
+        });
+      }
+    })
+    .catch(err => {
+      // we ran into an error getting the hubs
+      // use the catch-all 500 status code
+      res.status(500).json({
+        success: false,
+        err,
+      });
+    });
+});
+```
+
+1. try the endpoint with an invalid `id`. Should fail with `400` error.
+1. try the endpoint with the `id` of a non existing hub. Should fail with a `404`.
+1. try the endpoint with the `id` of a existing hub. Should get a `200` and the hub.
