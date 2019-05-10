@@ -42,7 +42,6 @@ Add an `index.js` file to the root folder with the following code:
 const express = require('express'); // npm module, needs to be installed
 // equivalent to import express from 'express';
 
-// import data helpers
 const server = express(); // creates an http web server
 
 // makes the web server listen for incoming traffic on port 4000
