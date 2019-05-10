@@ -1,6 +1,5 @@
 # Web API I Guided Project
 
-
 Guided project for **Web API I** module.
 
 In this project we will learn how to create a very simple Web API using `Node.js` and `Express`, and cover the basics of `server-side routing` and using global `middleware`.
@@ -13,7 +12,6 @@ The code for the guided project will be written in a single file for simplicity.
 
 ## Project Setup
 
-<<<<<<< HEAD
 The [starter code](https://github.com/LambdaSchool/webapi-i-guided) for this project is configured to run the server by typing `yarn server` or `npm run server`. The server will restart automatically on changes.
 
 Data for the API will be stored in memory using an array.
@@ -110,7 +108,7 @@ Next, we'll learn how to retrieve (the `R` in CRUD) a list of hubs.
 
 ## Add `GET /hubs` Endpoint
 
-This endpoint will return a list of hubs as a JSON formatted array. 
+This endpoint will return a list of hubs as a JSON formatted array.
 
 The file `./data/hubs-model.js` works as a data layer. It has methods for manipulating the database. Please read through the code to get familiar with it.
 
@@ -185,7 +183,7 @@ Explain how to make POST requests using postman. Remember to **set body to raw a
 1. make a POST request with `{ "name": "db 1" }` as the body.
 1. we should get an error because express doesn't know how to parse JSON from the body.
 1. add `express.json()` middleware and explain what it does. Tell students we'll know more about how `middleware` works in the _middleware module_.
-1. send the POST request again. Note that the hub we get back has `id`, `createdAt`, and `updated_at` fields. 
+1. send the POST request again. Note that the hub we get back has `id`, `createdAt`, and `updated_at` fields.
 
 **wait for students to catch up, use a `yes/no` poll to let students tell you when they are done**
 
@@ -198,16 +196,16 @@ Add the endpoint:
 ```js
 server.delete('/hubs/:id', (req, res) => {
   // introduce req.params
-  const { id }  = req.params;
+  const { id } = req.params;
 
   db.remove(id)
     .then(deleted => {
       // the data layer returns the deleted record
       // we'll use it to check if the id provided is valid
-      
-     if (deleted) {
-       // explain .end(). It ends the request and sends a response with the specified status code
-      // 204 (no content) is commonly used for DELETE as there is no need to send anything back.
+
+      if (deleted) {
+        // explain .end(). It ends the request and sends a response with the specified status code
+        // 204 (no content) is commonly used for DELETE as there is no need to send anything back.
         res.status(204).end();
       } else {
         res.status(404).json({
@@ -261,7 +259,7 @@ server.get('/hubs/:id', (req, res) => {
         });
       }
     })
-   .catch(err => {
+    .catch(err => {
       // we ran into an error getting the hubs
       // use the catch-all 500 status code
       res.status(500).json({
@@ -324,4 +322,3 @@ server.put('/hubs/:id', (req, res) => {
 1. make a `GET` to `/hubs` and show that the hub was updated.
 
 **wait for students to catch up, use a `yes/no` poll to let students tell you when they are done**
-
