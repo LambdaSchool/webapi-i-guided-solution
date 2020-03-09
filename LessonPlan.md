@@ -1,6 +1,6 @@
-# Web API I Guided Project
+# Node API 1 Guided Project
 
-Guided project for **Web API I** module.
+Guided project for **Node API 1** module.
 
 In this project we will learn how to create a very simple Web API using `Node.js` and `Express`, and cover the basics of `server-side routing` and using global `middleware`.
 
@@ -12,15 +12,15 @@ The code for the guided project will be written in a single file for simplicity.
 
 ## Project Setup
 
-The [starter code](https://github.com/LambdaSchool/webapi-i-guided) for this project is configured to run the server by typing `yarn server` or `npm run server`. The server will restart automatically on changes.
+The [starter code](https://github.com/LambdaSchool/node-api1-guided) for this project is configured to run the server by typing `npm run server`. The server will restart automatically on changes.
 
 Data for the API will be stored in memory using an array.
 
 ## How to Contribute
 
-- clone the [starter code](https://github.com/LambdaSchool/webapi-i-guided).
+- clone the [starter code](https://github.com/LambdaSchool/node-api1-guided).
 - create a solution branch: `git checkout -b solution`.
-- add this repository as a remote: `git remote add solution https://github.com/LambdaSchool/webapi-i-guided-solution`
+- add this repository as a remote: `git remote add solution https://github.com/LambdaSchool/node-api1-guided-solution`
 - pull from this repository's `master` branch into the `solution` branch in your local folder `git pull solution master:solution --force`.
 
 A this point you should have a `master` branch pointing to the student's repository and a `solution` branch with the latest changes added to the solution repository.
