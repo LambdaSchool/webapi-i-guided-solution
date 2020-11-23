@@ -1,7 +1,6 @@
 {
-  "name": "webapi-i-guided",
+  "name": "node-api1-guided-solution",
   "version": "1.0.0",
-  "description": "Guided Project for Web API I module.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -9,25 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LambdaSchool/webapi-i-guided.git"
+    "url": "git+https://github.com/LambdaSchool/node-api1-guided-solution.git"
   },
-  "keywords": [
-    "backend",
-    "guided",
-    "hubs",
-    "lambda",
-    "api"
-  ],
-  "author": "Lambda School",
-  "bugs": {
-    "url": "https://github.com/LambdaSchool/webapi-i-guided/issues"
-  },
-  "homepage": "https://github.com/LambdaSchool/webapi-i-guided#readme",
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.6"
   },
   "dependencies": {
     "express": "^4.17.1",
-    "shortid": "^2.2.15"
+    "shortid": "^2.2.16"
   }
 }
