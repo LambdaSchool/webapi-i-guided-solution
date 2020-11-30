@@ -11,6 +11,7 @@
     "url": "git+https://github.com/LambdaSchool/node-api1-guided-solution.git"
   },
   "devDependencies": {
+    "eslint": "^7.14.0",
     "nodemon": "^2.0.6"
   },
   "dependencies": {

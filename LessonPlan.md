@@ -31,7 +31,7 @@ When making changes to the `master` branch, commit the changes and use `git push
 
 ## Introduce Node and Express
 
-Open Training Kit and do a quick introduction to Node and Express.
+Open Canvas and do a quick introduction to Node and Express.
 
 ## Add .gitignore
 
@@ -126,116 +126,114 @@ server.get("/hello", (req, res) => {
 
 **time for a break, take 5 minutes**
 
-Next, we'll learn how to add (the `C` in CRUD) a new hub.
+Next, we'll learn how to add (the `C` in CRUD) a new dog.
 
-## Add `POST /api/hubs` Endpoint
+## Add `POST /api/dogs` Endpoint
 
-This endpoint expects an object with the `name` for the hub and returns the newly created hub. The API will generate an `id` automatically.
+This endpoint expects an object with the `name` and `weight` for the dog and returns the newly created dog. The API will generate a unique id automatically, and will also add an `adopter_id` attribute to the dog the dog with a value of `null`.
 
 ```js
-server.post("/api/hubs", (req, res) => {
+server.post("/api/dogs", (req, res) => {
   // one way a client can send information is in the request body
   // axios.post(url, data) << the data will show up as req.body on the server
-  const hubInfo = req.body; // needs use express.json() middleware
+  const newDog = req.body; // needs use express.json() middleware
 
   // validate the data before saving it.
-  hubInfo.id = shortid.generate();
+  newDog.id = shortid.generate();
 
-  hubs.push(hubInfo);
+  dogs.push(newDog);
 
-  res.status(201).json(hubInfo);
+  res.status(201).json(newDog);
 });
 ```
 
-1. add `let hubs = [];` array after creating the server. This array will hold our data.
-1. add the `shortid` npm package.
+1. add `let dogs = [];` array after creating the server. This array will hold our data.
+2. add the `shortid` npm package.
 
 Explain how to make POST requests using postman. Remember to **set body to raw and select JSON from the body type dropdown**, it defaults to TEXT.
 
-Make a POST request to `/api/hubs`.
+Make a POST request to `/api/dogs`.
 
 ```json
 {
-  "lessonId": 1,
-  "name": "node_intro",
-  "cohort": "web 27",
-  "messages": []
+  "name": "Fido",
+  "weight": 25
 }
 ```
 
 1. the error is because express doesn't know how to parse JSON from the body.
 1. add `express.json()` middleware and explain what it does. Tell students we'll know more about how `middleware` works in the _middleware module_.
-1. make the POST request again. Note that the hub we get back includes the `id`.
+1. make the POST request again. Note that the dog we get back includes the `id`.
 
 ### You Do (estimated 5m to complete)
 
-Ask students to create and test the endpoint to add a Lesson.
+Ask students to create and test the endpoint to add an Adopter.
 
 **any questions?**
 
-Next, we'll learn how to retrieve (the `R` in CRUD) a list of hubs.
+Next, we'll learn how to retrieve (the `R` in CRUD) a list of dogs.
 
-## Add `GET /api/hubs` Endpoint
+## Add `GET /api/dogs` Endpoint
 
-This endpoint will return a list of hubs as a JSON formatted array.
+This endpoint will return a list of dogs as a JSON formatted array.
 
 ```js
-server.get("/api/hubs", (req, res) => {
-  res.status(200).json(hubs);
+server.get("/api/dogs", (req, res) => {
+  res.status(200).json(dogs);
 });
 ```
 
-Make a GET request to `/api/hubs` in Postman.
+Make a GET request to `/api/dogs` in Postman.
 
 ### You Do (estimated 5m to complete)
 
-Ask students to create and test the endpoint to retrieve a list of Lessons.
+Ask students to create and test the endpoint to retrieve a list of Adopters.
 
 **time for a break, take 5 minutes**
 
-Next, we'll learn how to remove (the `D` in CRUD) a hub.
+Next, we'll learn how to remove (the `D` in CRUD) a dog.
 
-## Add `DELETE /api/hubs/:id` Endpoint
+## Add `DELETE /api/dogs/:id` Endpoint
 
 ```js
-server.delete("/api/hubs/:id", (req, res) => {
+server.delete("/api/dogs/:id", (req, res) => {
   const { id } = req.params; // explain req.params
 
-  const deleted = hubs.find(hub => hub.id === id);
+  const deleted = dogs.find(dog => dog.id === id);
 
   if (deleted) {
-    hubs = hubs.filter(hub => hub.id !== id);
+    dogs = dogs.filter(dog => dog.id !== id);
 
     res.status(200).json(deleted);
   } else {
     res
       .status(404)
-      .json({ message: "I cannot find the hub you are looking for" });
+      .json({ message: "I cannot find the dog you are looking for" });
   }
 });
 ```
 
-1. make a `GET` request to `/api/hubs`, show the list of existing hubs.
+1. make a `GET` request to `/api/dogs`, show the list of existing dogs.
 1. try deleting with id `abc`. Should fail with a `404`.
-1. use a valid `id` to delete a hub
-1. make a `GET` request to `/api/hubs`. Note that the hub was deleted.
+1. use a valid `id` to delete a dog
+1. make a `GET` request to `/api/dogs`. Note that the dog was deleted.
 
 ### You Do (estimated 5m to complete)
 
-Ask students to create and test the endpoint to delete a Lesson.
+Ask students to create and test the endpoint to delete a Adopter.
 
 At this point we have seen how to read information from the request `body` and `url parameters`.
 
-Next, we'll bring it all together to update (the `U` in CRUD) a hub.
+Next, we'll bring it all together to update (the `U` in CRUD) a dog.
 
-## Add `PATCH /api/hubs/:id` Endpoint
+## Add `PATCH /api/dogs/:id` Endpoint
 
 ```js
-server.patch("/api/hubs/:id", (req, res) => {
+server.patch("/api/dogs/:id", (req, res) => {
   const { id } = req.params;
   const changes = req.body;
 
-  let found = hubs.find(hub => hub.id === id);
+  let found = dogs.find(dog => dog.id === id);
 
   if (found) {
     Object.assign(found, changes);
@@ -244,68 +242,68 @@ server.patch("/api/hubs/:id", (req, res) => {
   } else {
     res
       .status(404)
-      .json({ message: "I cannot find the hub you are looking for" });
+      .json({ message: "I cannot find the dog you are looking for" });
   }
 });
 ```
 
-Test the endpoint passing an updated name for the Hub. Note that the `messages` property is still there.
+Test the endpoint passing an updated name for the Dog. Note that the `messages` property is still there.
 
 ### You Do (estimated 5m to complete)
 
-Ask students to create and test the endpoint to patch a Lesson.
+Ask students to create and test the endpoint to patch a Adopter.
 
-## Add `PUT /api/hubs/:id` Endpoint
+## Add `PUT /api/dogs/:id` Endpoint
 
-Explain the difference between `PATCH` and `PUT`. We'll use a `PUT` to update a hub and remove the extra `messages` property. **Remember to pass the id**.
+Explain the difference between `PATCH` and `PUT`. We'll use a `PUT` to update a dog and remove the extra `messages` property. **Remember to pass the id**.
 
 ```js
-server.put("/api/hubs/:id", (req, res) => {
+server.put("/api/dogs/:id", (req, res) => {
   const { id } = req.params;
   const changes = req.body;
 
-  let index = hubs.findIndex(hub => hub.id === id);
+  let index = dogs.findIndex(dog => dog.id === id);
 
   if (index !== -1) {
-    hubs[index] = changes;
+    dogs[index] = changes;
 
-    res.status(200).json(hubs[index]);
+    res.status(200).json(dogs[index]);
   } else {
     res
       .status(404)
-      .json({ message: "I cannot find the hub you are looking for" });
+      .json({ message: "I cannot find the dog you are looking for" });
   }
 });
 ```
 
-Test the endpoint passing a Hub without the messages. Notice it's the messages property is removed.
+Test the endpoint passing a Dog without the messages. Notice it's the messages property is removed.
 
 ### You Do (estimated 5m to complete)
 
-Ask students to create and test the endpoint to update a Lesson.
+Ask students to create and test the endpoint to update a Adopter.
 
 ### Optional You Do (estimated 5m to complete)
 
-Ask students to create and test an endpoint to retrieve the details of a Hub.
+Ask students to create and test an endpoint to retrieve the details of a Dog.
 
 One possible solution:
 
 ```js
-server.get("/api/hubs/:id", (req, res) => {
-  const found = hubs.find(hub => hub.id === id);
+server.get("/api/dogs/:id", (req, res) => {
+  const found = dogs.find(dog => dog.id === id);
 
   if (found) {
     res.status(200).json(found);
   } else {
     res
       .status(404)
-      .json({ message: "I cannot find the hub you are looking for" });
+      .json({ message: "I cannot find the dog you are looking for" });
   }
 });
 ```
 
 Test the endpoint.
 
-## For Next Lesson
+## For Next Adopter
 
 - review promises.

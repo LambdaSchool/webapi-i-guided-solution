@@ -3,7 +3,7 @@ const shortid = require("shortid");
 
 const server = express();
 
-let hubs = [];
+let dogs = [];
 
 // Middleware
 server.use(express.json()); // teaches express how to parse JSON from the request body
@@ -22,37 +22,37 @@ server.get("/hello", (req, res) => {
   res.json({ hello: "Lambda School" });
 });
 
-server.post("/api/hubs", (req, res) => {
-  const hubInfo = req.body;
+server.post("/api/dogs", (req, res) => {
+  const newDog = { ...req.body, adopter_id: null };
 
-  hubInfo.id = shortid.generate();
+  newDog.id = shortid.generate();
 
-  hubs.push(hubInfo);
+  dogs.push(newDog);
 
-  res.status(201).json(hubInfo);
+  res.status(201).json(newDog);
 });
 
-server.get("/api/hubs", (req, res) => {
-  res.status(200).json(hubs);
+server.get("/api/dogs", (req, res) => {
+  res.status(200).json(dogs);
 });
 
-server.get("/api/hubs/:id", (req, res) => {
-  const found = hubs.find(hub => hub.id === id);
+server.get("/api/dogs/:id", (req, res) => {
+  const found = dogs.find(dog => dog.id === req.params.id);
 
   if (found) {
     res.status(200).json(found);
   } else {
     res
       .status(404)
-      .json({ message: "I cannot find the hub you are looking for" });
+      .json({ message: "I cannot find the dog you are looking for" });
   }
 });
 
-server.patch("/api/hubs/:id", (req, res) => {
+server.patch("/api/dogs/:id", (req, res) => {
   const { id } = req.params;
-  const changes = req.body;
+  const changes = { ...req.body, id };
 
-  let found = hubs.find(hub => hub.id === id);
+  let found = dogs.find(dog => dog.id === id);
 
   if (found) {
     Object.assign(found, changes);
@@ -61,40 +61,40 @@ server.patch("/api/hubs/:id", (req, res) => {
   } else {
     res
       .status(404)
-      .json({ message: "I cannot find the hub you are looking for" });
+      .json({ message: "I cannot find the dog you are looking for" });
   }
 });
 
-server.put("/api/hubs/:id", (req, res) => {
+server.put("/api/dogs/:id", (req, res) => {
   const { id } = req.params;
-  const changes = req.body;
+  const changes = { ...req.body, id };
 
-  let index = hubs.findIndex(hub => hub.id === id);
+  let index = dogs.findIndex(dog => dog.id === id);
 
   if (index !== -1) {
-    hubs[index] = changes;
+    dogs[index] = changes;
 
-    res.status(200).json(hubs[index]);
+    res.status(200).json(dogs[index]);
   } else {
     res
       .status(404)
-      .json({ message: "I cannot find the hub you are looking for" });
+      .json({ message: "I cannot find the dog you are looking for" });
   }
 });
 
-server.delete("/api/hubs/:id", (req, res) => {
+server.delete("/api/dogs/:id", (req, res) => {
   const { id } = req.params;
 
-  const deleted = hubs.find(hub => hub.id === id);
+  const deleted = dogs.find(dog => dog.id === id);
 
   if (deleted) {
-    hubs = hubs.filter(hub => hub.id !== id);
+    dogs = dogs.filter(dog => dog.id !== id);
 
     res.status(200).json(deleted);
   } else {
     res
       .status(404)
-      .json({ message: "I cannot find the hub you are looking for" });
+      .json({ message: "I cannot find the dog you are looking for" });
   }
 });
 
