@@ -185,7 +185,7 @@ Next, we'll learn how to add (the `C` in CRUD) a new dog.
 
 ### You Do (estimated 5m to complete)
 
-Ask students to create and test the endpoint to add an Adopter.
+Ask students to delete the endpoint and recreate it from memory.
 
 **any questions?**
 
@@ -216,7 +216,7 @@ Make a GET request to `/api/dogs` in Postman.
 
 ### You Do (estimated 5m to complete)
 
-Ask students to create and test the endpoint to retrieve a list of Adopters.
+Ask students to delete the endpoint and recreate it from memory.
 
 **time for a break, take 5 minutes**
 
@@ -254,7 +254,7 @@ Next, we'll learn how to remove (the `D` in CRUD) a dog.
 
 ### You Do (estimated 5m to complete)
 
-Ask students to create and test the endpoint to delete a Adopter.
+Ask students to delete the endpoint and recreate it from memory.
 
 At this point we have seen how to read information from the request `body` and `url parameters`.
 
@@ -295,7 +295,7 @@ Test the endpoint passing an updated dog. Explain the difference between `PATCH`
 
 ### You Do (estimated 5m to complete)
 
-Ask students to create and test the endpoint to put a Adopter.
+Ask students to delete the endpoint and recreate it from memory.
 
 Test the endpoint passing a Dog without the messages. Notice it's the messages property is removed.
 
