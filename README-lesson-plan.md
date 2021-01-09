@@ -1,10 +1,6 @@
-# Node API 1 Guided Project
+# Lambda Animal Shelter Web API
 
-Guided project for **Node API 1** module.
-
-In this project we will learn how to create a very simple Web API using `Node.js` and `Express`, and cover the basics of `server-side routing` and using global `middleware`.
-
-The code for the guided project will be written in a single file for simplicity. We'll see ways to structure an API to make it more maintainable in upcoming lectures.
+In order for the module challenge to be testable in Codegrade, the call to `server.listen` needs to be in a different module than the endpoints. There will be more talk of project organization in future lessons but starting today students need to organize their APIs following the pattern demonstrated in this GP.
 
 ## Prerequisites
 
