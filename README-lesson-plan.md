@@ -1,8 +1,10 @@
 # Lambda Animal Shelter Web API
 
-## Important Note
+## Important Notes
 
-In order for the module challenge to be testable in Codegrade, the call to `server.listen` and the endpoints need to be in different modules. There will be more talk of project organization in future lessons but starting today students need to organize their Express applications following the pattern demonstrated in this GP.
+In order for the module challenge to be testable in Codegrade, the call to `server.listen` and the endpoints need to be in different modules. There will be more talk of project organization in future lessons but starting today students need to structure the files and folders of their Express apps following the convention demonstrated in this GP.
+
+The endpoints are written using async db access functions that behave similarly to the functions we will write in the future using a query builder. The endpoints can be demoed using Promises or async/await. We have provided examples of both.
 
 ## Prerequisites
 
@@ -138,7 +140,7 @@ Next, we'll learn how to add (the `C` in CRUD) a new dog.
 
 ## Add `POST /api/dogs` Endpoint
 
-- This endpoint expects an object with the `name` and `weight` for the dog and returns the newly created dog. The API will generate a unique id automatically, and will also add an `adopter_id` attribute to the dog the dog with a value of `null`.
+- This endpoint expects an object with the `name` and `weight` for the dog and returns the newly created dog. The backend will generate a unique id automatically, and will also add an `adopter_id` attribute to the dog the dog with a value of `null`.
 
   ```js
   // [POST] /api/dogs (C of CRUD, create new dog from JSON payload)
