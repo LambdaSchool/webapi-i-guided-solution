@@ -1,6 +1,8 @@
 # Lambda Animal Shelter Web API
 
-In order for the module challenge to be testable in Codegrade, the call to `server.listen` needs to be in a different module than the endpoints. There will be more talk of project organization in future lessons but starting today students need to organize their APIs following the pattern demonstrated in this GP.
+## Important Note
+
+In order for the module challenge to be testable in Codegrade, the call to `server.listen` and the endpoints need to be in different modules. There will be more talk of project organization in future lessons but starting today students need to organize their Express applications following the pattern demonstrated in this GP.
 
 ## Prerequisites
 
@@ -8,9 +10,13 @@ In order for the module challenge to be testable in Codegrade, the call to `serv
 
 ## Project Setup
 
-The [starter code](https://github.com/LambdaSchool/node-api1-guided) for this project is configured to run the server by typing `npm run server`. The server will restart automatically on changes.
+The [starter code](https://github.com/LambdaSchool/node-api1-guided) for this project contains the modules necessary for the project but no `package.json`:
 
-Data for the API will be stored in memory using an array.
+- `api/dog-model.js` exposes asyncronous data access functions
+- `api/server.js` contains the endpoints and exposes the express app
+- `index.js` imports the express app and starts it
+
+Data for the API is stored in memory using an array.
 
 ## Introduce Node and Express
 
@@ -18,31 +24,39 @@ Open Canvas and do a quick introduction to Node and Express.
 
 ## Add .gitignore
 
-Use `npx gitignore node` to generate a `.gitignore` file.
-
-Explain what `npx` does.
-
-Alternative the `gitignore` package can be installed globally with `npm i -g gitignore` and used without `npx`.
-
-Add `.DS_Store` to the generated `.gitignore` for Mac users.
+- Use `npx gitignore node` to generate a `.gitignore` file. Explain what `npx` does.
+- Alternatively the `gitignore` package can be installed globally with `npm i -g gitignore` and used without `npx`.
+- Add `.DS_Store` to the generated `.gitignore` for Mac users.
 
 ## Generate package.json
 
-Use `npm init -y` to generate a fresh `package.json`. Explain what it does.
+- Use `npm init -y` to generate a fresh `package.json`. Explain what it does.
 
 ## Create Basic Express Server
 
-Add an `index.js` file to the root folder with the following code:
+- Inside `api/server.js` add the following code:
 
 ```js
 // introduce the `CommonJS` way of importing packages as you _require_ `express`.
 const express = require("express"); // npm module, needs to be installed
-// equivalent to import express from 'express';
+// equivalent to `import express from 'express';`
 
-const server = express(); // creates an http web server
+const server = express();
+// creates an http web server
+
+module.exports = server;
+// equivalent to `export default server`
+```
+
+- Inside `index.js` add the following code:
+
+```js
+const server = require("./api/server.js"); // a module inside the project
+// equivalent to `import server from './api/server.js';`
 
 const PORT = 5000;
-// makes the web server listen for incoming traffic on port 5000
+// the web server will listen for incoming traffic on port 5000
+
 server.listen(PORT, () => {
   // this callback function runs after the server starts sucessfully
   console.log(`\n*** Server Running on http://localhost:${PORT} ***\n`);
@@ -50,24 +64,23 @@ server.listen(PORT, () => {
 ```
 
 1. use npm to install `express`.
-1. add `start` script using `node index.js`.
-1. run the server with `npm start`.
-1. note the logged message in the terminal.
-1. navigate to `http://localhost:5000` in a browser.
-1. note server responds `Cannot GET /`.
-1. stop the server. Explain how to stop the server with `ctrl + c`.
-1. refresh the browser window. Note that the response is different, there is no server responding to requests on that address.
-1. start the server and refresh the browser window. The server is trying to process the request, but we haven't written any code to send a response, we'll do that next.
+2. add `start` script using `node index.js`.
+3. run the server with `npm start`.
+4. note the logged message in the terminal.
+5. navigate to `http://localhost:5000` in a browser.
+6. note server responds `Cannot GET /`.
+7. stop the server. Explain how to stop the server with `ctrl + c`.
+8. refresh the browser window. Note that the response is different, there is no server responding to requests on that address.
+9. start the server and refresh the browser window.
+10. the server is trying to process the request, but we haven't written any code to send a response, we'll do that next.
 
 Keep the server running.
 
 ## Add `GET /` Endpoint
 
-Add the following lines after `const server = express();`:
+Add the following lines after `const server = express();` inside `api/server.js`:
 
 ```js
-// Endpoints
-
 // introduce `routing` and explain how requests are routed to the correct
 // `request handler function` based on the URL and HTTP verb on the request.
 // Explain what `req` and `res` are.
@@ -81,10 +94,10 @@ Refresh browser. Same error, the server didn't restart.
 
 ## Make server restart on changes
 
-- add `nodemon` as a dev dependency.
-- add `server` script using `nodemon index.js`.
-- stop the server.
-- run the server using `npm run server`.
+- add `nodemon` as a dev dependency with `npm i -D nodemon`.
+- add `server` script using `nodemon index.js` to the `package.json`.
+- stop the server currently running.
+- start the server using `npm run server`.
 - make a `GET` to `/`.
 
 **any questions?**
@@ -107,7 +120,19 @@ server.get("/hello", (req, res) => {
 });
 ```
 
-**time for a break, take 5 minutes**
+Time for a break, **take 5 minutes**
+
+Next, we'll learn to consume the database access functions inside our `api/server.js`.
+
+## Import The Database Access Functions
+
+Add the following line at the top of `api/server.js`:
+
+```js
+const Dog = require('./dog-model.js');
+```
+
+Explain the asynchonous methods contained inside the `Dog` object by walking students through the `api/dog-model.js` file. We are imitating database access functions, which are asynchoronous because querying a database is an example of IO and could take a long time. We want the single thread to be free to do other work (like handling other requests) while the IO operation finishes.
 
 Next, we'll learn how to add (the `C` in CRUD) a new dog.
 
