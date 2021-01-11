@@ -14,7 +14,7 @@ The endpoints are written using async db access functions that behave similarly 
 
 The [starter code](https://github.com/LambdaSchool/node-api1-guided) for this project contains the modules necessary for the project but no `package.json`:
 
-1. `api/dog-model.js` exposes asyncronous data access functions
+1. `api/dog-model.js` exposes asynchronous data access functions
 1. `api/server.js` contains the endpoints and exposes the express app
 1. `index.js` imports the express app and starts it
 
