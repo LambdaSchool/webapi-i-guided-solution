@@ -1,23 +1,24 @@
+// IMPORTS AT THE TOP
+// IMPORTS AT THE TOP
+// IMPORTS AT THE TOP
 const express = require('express')
 const Dog = require('./dog-model')
 
 // INSTANCE OF EXPRESS APP
 // INSTANCE OF EXPRESS APP
 // INSTANCE OF EXPRESS APP
-
 const server = express()
 
 // GLOBAL MIDDLEWARE
 // GLOBAL MIDDLEWARE
 // GLOBAL MIDDLEWARE
-
 server.use(express.json()) // teaches express how to parse JSON from the request body
 
 // ENDPOINTS
 // ENDPOINTS
 // ENDPOINTS
 
-// [GET] /
+// [GET] / (Hello World endpoint)
 server.get('/', (req, res) => {
   // name is not important (could be request, response), position is.
   res.json({ hello: 'world' })
@@ -124,5 +125,4 @@ server.delete('/api/dogs/:id', (req, res) => {
 // EXPOSING THE SERVER TO OTHER MODULES
 // EXPOSING THE SERVER TO OTHER MODULES
 // EXPOSING THE SERVER TO OTHER MODULES
-
 module.exports = server
