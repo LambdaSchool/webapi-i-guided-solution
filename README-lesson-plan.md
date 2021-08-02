@@ -8,7 +8,7 @@ The endpoints are written using async db access functions that behave similarly 
 
 ## Prerequisites
 
-- [Insomnia](https://insomnia.rest) or [Postman](https://www.getpostman.com/downloads/) installed.
+- [Insomnia](https://insomnia.rest) or [Postman](https://www.postman.com/downloads/) installed.
 
 ## Project Setup
 
