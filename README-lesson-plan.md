@@ -168,7 +168,7 @@ Next, we'll learn how to add (the `C` in CRUD) a new dog.
   })
   ```
 
-1. This should crash. Add the `shortid` npm package to fix the crash.
+1. This should crash. Add the `nanoid` npm package to fix the crash.
 1. Explain how to make POST requests using postman.
 1. Remember to **set body to raw and select JSON from the body type dropdown**, it defaults to TEXT.
 1. Make a POST request to `/api/dogs`.
