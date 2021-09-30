@@ -24,6 +24,21 @@ server.get('/', (req, res) => {
   res.json({ hello: 'world' })
 })
 
+// [GET] /api/dogs (Read of CRUD, fetch all dogs)
+server.get('/api/dogs', (req, res) => {
+  // 1- gather info from the request object
+  // 2- interact with db
+  Dog.findAll()
+    .then(dogs => {
+      // 3A- send appropriate response
+      res.status(200).json(dogs)
+    })
+    .catch(error => {
+      // 3B- send appropriate response (sad path)
+      res.status(500).json({ error: error.message })
+    })
+})
+
 // [GET] /api/dogs/:id (Read of CRUD, fetch dog by :id)
 server.get('/api/dogs/:id', (req, res) => {
   // 1- gather info from the request object
@@ -38,21 +53,6 @@ server.get('/api/dogs/:id', (req, res) => {
     })
     .catch(error => {
       // 3B- send appropriate response (something crashed)
-      res.status(500).json({ error: error.message })
-    })
-})
-
-// [GET] /api/dogs (Read of CRUD, fetch all dogs)
-server.get('/api/dogs', (req, res) => {
-  // 1- gather info from the request object
-  // 2- interact with db
-  Dog.findAll()
-    .then(dogs => {
-      // 3A- send appropriate response
-      res.status(200).json(dogs)
-    })
-    .catch(error => {
-      // 3B- send appropriate response (sad path)
       res.status(500).json({ error: error.message })
     })
 })
