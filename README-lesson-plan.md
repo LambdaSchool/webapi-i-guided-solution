@@ -1,4 +1,4 @@
-# Lambda Animal Shelter Web API
+# Animal Shelter Web API
 
 ## Important Notes
 
@@ -111,14 +111,14 @@ Time for students to practice what they have learned.
 Ask students to write another _endpoint_ that will handle GET requests to `/hello` and send back the following JSON object:
 
 ```json
-{ "hello": "Lambda School" }
+{ "hello": "there" }
 ```
 
 One of many possible solutions:
 
 ```js
 server.get("/hello", (req, res) => {
-  res.json({ hello: "Lambda School" });
+  res.json({ hello: "there" });
 });
 ```
 
