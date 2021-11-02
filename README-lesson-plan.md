@@ -56,8 +56,8 @@ Open Canvas and do a quick introduction to Node and Express.
   const server = require("./api/server.js"); // a module inside the project
   // equivalent to `import server from './api/server.js';`
 
-  const PORT = 5000;
-  // the web server will listen for incoming traffic on port 5000
+  const PORT = 9000;
+  // the web server will listen for incoming traffic on port 9000
 
   server.listen(PORT, () => {
     // this callback function runs after the server starts sucessfully
@@ -69,7 +69,7 @@ Open Canvas and do a quick introduction to Node and Express.
 1. add `start` script using `node index.js`.
 1. run the server with `npm start`.
 1. note the logged message in the terminal.
-1. navigate to `http://localhost:5000` in a browser.
+1. navigate to `http://localhost:9000` in a browser.
 1. note server responds `Cannot GET /`.
 1. stop the server. Explain how to stop the server with `ctrl + c`.
 1. refresh the browser window. Response is different, there is no server responding to requests on that address.
